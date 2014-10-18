@@ -10,9 +10,11 @@ import java.util.Date;
  * Created by NegatioN on 18.10.2014.
  */
 public class Person {
+    public final static String DATEFORMAT = "yyyy-MM-dd";
+
 
     private int id;
-    private String name;
+    private String name, customMessage;
     private int phoneNumber;
     private Date birthday;
 
@@ -23,20 +25,32 @@ public class Person {
         this.birthday = birthday;
     }
 
+    public Person(int id, String name, int phoneNumber, Date birthday, String customMessage){
+        this.id = id;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.birthday = birthday;
+        this.customMessage = customMessage;
+    }
+
     public Person(String name, int phoneNumber, Date birthday){
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.birthday = birthday;
     }
 
+    public Person(){
+
+    }
+
     public String getFormattedDate(){
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat df = new SimpleDateFormat(DATEFORMAT);
         Log.d("Person.formattedDay", df.format(birthday));
         return df.format(birthday);
     }
 
     public void setFormattedDate(String dateFromDB){
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat df = new SimpleDateFormat(DATEFORMAT);
         try {
             birthday = df.parse(dateFromDB);
         }catch(ParseException e){
@@ -55,7 +69,16 @@ public class Person {
         this.id = id;
     }
 
+    public String getCustomMessage() {
+        return customMessage;
+    }
+
+    public void setCustomMessage(String customMessage) {
+        this.customMessage = customMessage;
+    }
+
     public String getName() {
+
 
         return name;
     }
