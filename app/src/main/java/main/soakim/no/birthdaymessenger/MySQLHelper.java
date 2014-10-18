@@ -1,8 +1,11 @@
 package main.soakim.no.birthdaymessenger;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import main.soakim.no.birthdaymessenger.Information.Person;
 
 /**
  * Created by NegatioN on 18.10.2014.
@@ -35,4 +38,23 @@ public class MySQLHelper extends SQLiteOpenHelper{
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_PERSONS);
         onCreate(sqLiteDatabase);
     }
+
+    // CRUD Functionality for DB.
+
+    //adds a person to the database
+    public void addPerson(Person person){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, person.getName());
+        values.put(KEY_PHONE, person.getPhoneNumber());
+        values.put(KEY_BIRTHDAY, person.getFormattedDate());
+
+        db.insert(TABLE_PERSONS, null, values);
+        db.close();
+
+    }
+
+
+
 }
