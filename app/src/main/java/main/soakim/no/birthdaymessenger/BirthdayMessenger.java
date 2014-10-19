@@ -1,51 +1,80 @@
 package main.soakim.no.birthdaymessenger;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import main.soakim.no.birthdaymessenger.Information.Person;
 
+public class BirthdayMessenger extends Activity implements BirthdayListFragment.ListFragmentItemClickListener {
+    public static String[] personsName;
+    public static ArrayList<Person> persons = new ArrayList<Person>();
 
-public class BirthdayMessenger extends Activity implements BirthdayListFragment.PersonChanged {
+    public BirthdayMessenger() {
+        persons.add(new Person(1, "Joakim", 12345678, setFormattedDate("1990-02-13")));
+        persons.add(new Person(2, "Sondre", 11111111, setFormattedDate("1992-09-22")));
+        persons.add(new Person(3, "Martin", 22222222, setFormattedDate("1993-05-17")));
+        persons.add(new Person(4, "Lars-Erik", 33333333, setFormattedDate("1991-11-28")));
+        persons.add(new Person(5, "Mr. Marius", 44444444, setFormattedDate("1983-01-02")));
 
-    private ArrayList<Person> persons = new ArrayList<Person>();
+        personsName = new String[persons.size()];
+        for(int i = 0; i < personsName.length; i++)
+            personsName[i] = persons.get(i).getName();
+    }
+
+    public Date setFormattedDate(String dateFromDB){
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date d = null;
+        try {
+            d = df.parse(dateFromDB);
+        }catch(ParseException e){
+            e.printStackTrace();
+            d = null;
+        }
+        return d;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_birthday_messenger);
     }
 
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.birthday_messenger, menu);
-        return true;
-    }
+    public void onListFragmentItemClick(int position) {
+        int orientation = getResources().getConfiguration().orientation;
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        if(orientation == Configuration.ORIENTATION_LANDSCAPE ){
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            Fragment prevFrag = fragmentManager.findFragmentByTag("main.soakim.no.birthdaymessenger.person.edit");
+
+            if(prevFrag!=null) fragmentTransaction.remove(prevFrag);
+
+            EditPersonFragment fragment = new EditPersonFragment();
+
+            Bundle b = new Bundle();
+            b.putInt("position", position);
+            fragment.setArguments(b);
+            fragmentTransaction.add(R.id.edit_person_fragment_container, fragment,"main.soakim.no.birthdaymessenger.person.edit");
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }else{
+            Intent intent = new Intent("main.soakim.no.birthdaymessenger.EditPersonActivity");
+            intent.putExtra("position", position);
+            startActivity(intent);
         }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void nameChanged(String name) {
-        //if(findViewById(R.id.editPage) != null) {
-
     }
 }
-

@@ -43,6 +43,26 @@ public class Person {
 
     }
 
+    public int getDay(){
+        int i = Integer.parseInt(getFormattedDate("dd"));
+        return i;
+    }
+
+    public int getMonth(){
+        int i = Integer.parseInt(getFormattedDate("MM"));
+        return i;
+    }
+
+    public int getYear(){
+        int i = Integer.parseInt(getFormattedDate("yyyy"));
+        return i;
+    }
+
+    public String getFormattedDate(String format){
+        SimpleDateFormat df = new SimpleDateFormat(format);
+        return df.format(birthday);
+    }
+
     public String getFormattedDate(){
         SimpleDateFormat df = new SimpleDateFormat(DATEFORMAT);
         Log.d("Person.formattedDay", df.format(birthday));
@@ -97,5 +117,9 @@ public class Person {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public Date getBirthday() {
+        return birthday;
     }
 }
