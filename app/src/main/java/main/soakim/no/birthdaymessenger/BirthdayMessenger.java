@@ -7,9 +7,6 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -50,6 +47,11 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_birthday_messenger);
+
+        //how to send an sms
+       // Intent i = new Intent();
+       // i.setAction("main.soakim.no.birthdaymessenger.SmsBroadcastReciever");
+       // sendBroadcast(i);
     }
 
     @Override
