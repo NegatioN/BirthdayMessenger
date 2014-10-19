@@ -1,13 +1,11 @@
 package main.soakim.no.birthdaymessenger;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import main.soakim.no.birthdaymessenger.Information.Person;
 
@@ -20,6 +18,13 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_birthday_messenger);
+
+
+        //send an sms
+    //    Intent i = new Intent();
+    //    i.setAction("main.soakim.no.birthdaymessenger.SmsBroadcastReciever");
+    //    sendBroadcast(i);
+
     }
 
 

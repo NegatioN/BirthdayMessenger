@@ -3,9 +3,11 @@ package main.soakim.no.birthdaymessenger.smsservice;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.telephony.SmsManager;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -27,14 +29,28 @@ public class SmsService extends Service {
         Calendar calendar = Calendar.getInstance();
 
         MySQLHelper db = new MySQLHelper(getApplicationContext());
-        List<Person> persons = db.getPersonWithBirthday(convertDateToString(calendar));
+       // List<Person> persons = db.getPersonWithBirthday(convertDateToString(calendar));
+
+        //test
+        List<Person> persons = new ArrayList<Person>();
+        persons.add(new Person("Joakim Rishaug", 95153437, Calendar.getInstance().getTime()));
 
         if(persons.isEmpty())
             //do nothing?
             Log.d("SmsService.birthday", "no birthdays on this day");
-        else
-            //TODO SMS-SEND
+        else {
+            //sends an sms to each person with a birthday today
+            for(Person person : persons){
+                try {
+                    SmsManager smsManager = SmsManager.getDefault();
+                    smsManager.sendTextMessage(String.valueOf(person.getPhoneNumber()), null, Person.CURRENTMESSAGE, null, null);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+
+            }
             Log.d("SmsService.birthday", "Birthdaymessage sent");
+        }
 
         return super.onStartCommand(intent, flags, startId);
     }
