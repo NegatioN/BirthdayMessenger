@@ -20,6 +20,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".EditPersonActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="main.soakim.no.birthdaymessenger.EditPersonActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <receiver android:name=".smsservice.SmsBroadcastReciever">
             <intent-filter>
                 <action android:name="main.soakim.no.birthdaymessenger.SmsBroadcastReciever"></action>
