@@ -1,12 +1,20 @@
 package main.soakim.no.birthdaymessenger;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.Date;
 
-public class BirthdayMessenger extends Activity {
+import main.soakim.no.birthdaymessenger.Information.Person;
+
+
+public class BirthdayMessenger extends Activity implements BirthdayListFragment.PersonChanged {
+
+    private ArrayList<Person> persons = new ArrayList<Person>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,4 +41,11 @@ public class BirthdayMessenger extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void nameChanged(String name) {
+        //if(findViewById(R.id.editPage) != null) {
+
+    }
 }
+
