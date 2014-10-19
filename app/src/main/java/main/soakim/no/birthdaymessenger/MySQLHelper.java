@@ -94,7 +94,7 @@ public class MySQLHelper extends SQLiteOpenHelper{
         Cursor cursor = db.rawQuery(query, null);
 
         if(cursor.moveToFirst())
-        while(cursor.moveToNext()){
+        do{
             Person person = new Person();
 
             person.setId(Integer.parseInt(cursor.getString(0)));
@@ -105,7 +105,33 @@ public class MySQLHelper extends SQLiteOpenHelper{
                 person.setCustomMessage(cursor.getString(4));
 
             persons.add(person);
-        }
+        }while(cursor.moveToNext());
+
+        return persons;
+    }
+
+    //gets us all the people that has a birthday on the given yyyy-MM-dd formatted datestring
+    public List<Person> getPersonWithBirthday(String formattedDate){
+        List<Person> persons = new ArrayList<Person>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_PERSONS + " WHERE " + KEY_BIRTHDAY + " = " + formattedDate;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst())
+            do{
+                Person person = new Person();
+
+                person.setId(Integer.parseInt(cursor.getString(0)));
+                person.setName(cursor.getString(1));
+                person.setPhoneNumber(Integer.parseInt(cursor.getString(2)));
+                person.setFormattedDate(cursor.getString(3));
+                if(!cursor.isNull(4))
+                    person.setCustomMessage(cursor.getString(4));
+
+                persons.add(person);
+            }while(cursor.moveToNext());
+
 
         return persons;
     }
@@ -129,5 +155,7 @@ public class MySQLHelper extends SQLiteOpenHelper{
 
         return db.update(TABLE_PERSONS, values, KEY_ID + "=?", new String[]{String.valueOf(person.getId())});
     }
+
+
 
 }
