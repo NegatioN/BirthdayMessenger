@@ -4,22 +4,22 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.widget.ListView;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import main.soakim.no.birthdaymessenger.Information.Person;
 
 public class BirthdayMessenger extends Activity implements BirthdayListFragment.ListFragmentItemClickListener {
     public static String[] personsName;
-    public static ArrayList<Person> persons = new ArrayList<Person>();
+    public static List<Person> persons = new ArrayList<Person>();
 
     private void initTest() {
         persons.add(new Person(1, "Joakim", 12345678, setFormattedDate("1990-02-13")));
@@ -30,6 +30,7 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
 
         updateDb();
     }
+
 
     public Date setFormattedDate(String dateFromDB){
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -46,7 +47,18 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(savedInstanceState == null) initTest();
+
+        //if(savedInstanceState == null) initTest();
+
+        setContentView(R.layout.activity_birthday_messenger);
+        MySQLHelper db = new MySQLHelper(this);
+
+        db.addPerson(new Person( "Joakim", 12345678, setFormattedDate("1990-02-13")));
+        db.addPerson(new Person( "Martin", 22222222, setFormattedDate("1993-05-17")));
+
+        persons = db.getAllPersons();
+        Log.d("People in db", persons.toString());
+
 
         setContentView(R.layout.activity_birthday_messenger);
         //how to send an sms

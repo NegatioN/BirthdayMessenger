@@ -29,7 +29,7 @@ public class MySQLHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String createTable = "CREATETABLE " + TABLE_PERSONS + "(" +
+        String createTable = "CREATE TABLE " + TABLE_PERSONS + "(" +
                 KEY_ID + " INTEGER PRIMARY KEY, " +
                 KEY_NAME + " TEXT, " +
                 KEY_PHONE + " INTEGER, " +
