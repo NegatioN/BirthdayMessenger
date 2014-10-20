@@ -26,6 +26,13 @@ public class Person {
         this.birthday = birthday;
     }
 
+    public Person(int id, String name, int phoneNumber, String bday){
+        this.id = id;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        setFormattedDate(bday);
+    }
+
     public Person(int id, String name, int phoneNumber, Date birthday, String customMessage){
         this.id = id;
         this.name = name;

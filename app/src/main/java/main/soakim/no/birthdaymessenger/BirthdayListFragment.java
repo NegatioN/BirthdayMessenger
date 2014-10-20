@@ -15,7 +15,7 @@ import android.widget.Toast;
  */
 public class BirthdayListFragment extends ListFragment{
 
-    ListFragmentItemClickListener listener;
+    private ListFragmentItemClickListener listener;
 
     public interface ListFragmentItemClickListener {
         void onListFragmentItemClick(int position);
