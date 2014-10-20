@@ -21,19 +21,6 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
     public static String[] personsName;
     public static List<Person> persons = new ArrayList<Person>();
 
-    public BirthdayMessenger() {
-        persons.add(new Person(1, "Joakim", 12345678, setFormattedDate("1990-02-13")));
-        persons.add(new Person(2, "Sondre", 11111111, setFormattedDate("1992-09-22")));
-        persons.add(new Person(3, "Martin", 22222222, setFormattedDate("1993-05-17")));
-        persons.add(new Person(4, "Lars-Erik", 33333333, setFormattedDate("1991-11-28")));
-        persons.add(new Person(5, "Mr. Marius", 44444444, setFormattedDate("1983-01-02")));
-
-        personsName = new String[persons.size()];
-        for(int i = 0; i < personsName.length; i++)
-            personsName[i] = persons.get(i).getName();
-    }
-
-
     public Date setFormattedDate(String dateFromDB){
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date d = null;
@@ -49,7 +36,7 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_birthday_messenger);
+
         MySQLHelper db = new MySQLHelper(this);
 
      //   db.addPerson(new Person( "Joakim", 12345678, setFormattedDate("1990-02-13")));
@@ -59,9 +46,9 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
 
 
         Log.d("People in db", persons.toString());
+        updateDb();
 
-
-
+        setContentView(R.layout.activity_birthday_messenger);
         //how to send an sms
        // Intent i = new Intent();
        // i.setAction("main.soakim.no.birthdaymessenger.SmsBroadcastReciever");
@@ -92,5 +79,13 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
             intent.putExtra("position", position);
             startActivity(intent);
         }
+    }
+
+    public static void updateDb() {
+        personsName = new String[persons.size()];
+        for(int i = 0; i < personsName.length; i++)
+            personsName[i] = persons.get(i).getName();
+
+        //BirthdayListFragment.notifyListChange();
     }
 }
