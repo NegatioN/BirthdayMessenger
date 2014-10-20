@@ -2,7 +2,9 @@ package main.soakim.no.birthdaymessenger.smsservice;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.telephony.SmsManager;
 import android.util.Log;
 
@@ -43,7 +45,19 @@ public class SmsService extends Service {
             for(Person person : persons){
                 try {
                     SmsManager smsManager = SmsManager.getDefault();
-                    smsManager.sendTextMessage(String.valueOf(person.getPhoneNumber()), null, Person.CURRENTMESSAGE, null, null);
+
+                    String birthdayMessage = null;
+
+                    if(person.getCustomMessage() == null) {
+                        //get userdefined message.
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+                        birthdayMessage = preferences.getString("message_preference", "Gratulerer med dagen (Name), håper du har en fin dag! ");
+                        birthdayMessage = addPersonNameToMessage(birthdayMessage, person);
+                    }else
+                        birthdayMessage = person.getCustomMessage();
+
+                    smsManager.sendTextMessage(String.valueOf(person.getPhoneNumber()), null, birthdayMessage, null, null);
                 }catch(Exception e){
                     e.printStackTrace();
                 }
@@ -58,6 +72,13 @@ public class SmsService extends Service {
     private String convertDateToString(Calendar calendar){
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(calendar.getTime());
+    }
+
+    //exchanges the (Name) part of a message with the name of the person
+    private String addPersonNameToMessage(String message, Person person){
+        String regex = "(Name)";
+
+        return message.replace(regex, person.getName());
     }
 
 }

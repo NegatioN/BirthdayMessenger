@@ -52,10 +52,12 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
         setContentView(R.layout.activity_birthday_messenger);
         MySQLHelper db = new MySQLHelper(this);
 
-        db.addPerson(new Person( "Joakim", 12345678, setFormattedDate("1990-02-13")));
-        db.addPerson(new Person( "Martin", 22222222, setFormattedDate("1993-05-17")));
+     //   db.addPerson(new Person( "Joakim", 12345678, setFormattedDate("1990-02-13")));
+     //   db.addPerson(new Person( "Martin", 22222222, setFormattedDate("1993-05-17")));
 
         persons = db.getAllPersons();
+
+
         Log.d("People in db", persons.toString());
 
 
