@@ -21,17 +21,6 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
     public static String[] personsName;
     public static List<Person> persons = new ArrayList<Person>();
 
-    private void initTest() {
-        persons.add(new Person(1, "Joakim", 12345678, setFormattedDate("1990-02-13")));
-        persons.add(new Person(2, "Sondre", 11111111, setFormattedDate("1992-09-22")));
-        persons.add(new Person(3, "Martin", 22222222, setFormattedDate("1993-05-17")));
-        persons.add(new Person(4, "Lars-Erik", 33333333, setFormattedDate("1991-11-28")));
-        persons.add(new Person(5, "Mr. Marius", 44444444, setFormattedDate("1983-01-02")));
-
-        updateDb();
-    }
-
-
     public Date setFormattedDate(String dateFromDB){
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date d = null;
@@ -48,9 +37,6 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //if(savedInstanceState == null) initTest();
-
-        setContentView(R.layout.activity_birthday_messenger);
         MySQLHelper db = new MySQLHelper(this);
 
         db.addPerson(new Person( "Joakim", 12345678, setFormattedDate("1990-02-13")));
@@ -58,7 +44,7 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
 
         persons = db.getAllPersons();
         Log.d("People in db", persons.toString());
-
+        updateDb();
 
         setContentView(R.layout.activity_birthday_messenger);
         //how to send an sms
