@@ -51,8 +51,8 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
 
         setContentView(R.layout.activity_birthday_messenger);
         //how to send an sms
-        //Intent i = new Intent();
-        //i.setAction("main.soakim.no.birthdaymessenger.SmsBroadcastReciever");
+      //  Intent i = new Intent();
+       // i.setAction("main.soakim.no.birthdaymessenger.SmsBroadcastReciever");
        // sendBroadcast(i);
     }
 

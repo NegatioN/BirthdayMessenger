@@ -10,8 +10,9 @@ import android.content.Intent;
 public class SmsBroadcastReciever extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent i = new Intent(context, SmsService.class);
-        // real Intent i = new Intent(context, PeriodicService.class);
+        //Intent i = new Intent(context, SmsService.class);
+        // real
+        Intent i = new Intent(context, PeriodicService.class);
         context.startService(i);
     }
 }
