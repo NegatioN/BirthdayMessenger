@@ -1,6 +1,7 @@
 package main.soakim.no.birthdaymessenger;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
@@ -45,12 +46,12 @@ public class EditPersonFragment extends Fragment {
         datePicker.init(p.getYear(), p.getMonth(), p.getDay(), null);
 
         Button btn = (Button) v.findViewById(R.id.saveButton);
-        btn.setTag(p.getName());
+        btn.setTag(p.getId());
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 View parent = (View) v.getParent();
-                Person p = getPerson(v.getTag()+"");
+                Person p = getPerson(Integer.parseInt(v.getTag()+""));
                 saveEdit(parent, p);
             }
         });
@@ -58,10 +59,10 @@ public class EditPersonFragment extends Fragment {
         return v;
     }
 
-    private Person getPerson(String name) {
+    private Person getPerson(int id) {
         List<Person> persons = BirthdayMessenger.persons;
         for(Person p : persons)
-            if(p.getName().equals(name)) return p;
+            if(p.getId() == id) return p;
         return null;
     }
 
@@ -83,11 +84,15 @@ public class EditPersonFragment extends Fragment {
             Toast.makeText(getActivity(), "Wrong number format!", Toast.LENGTH_SHORT).show();
         }
 
-        //person.setName(name);
+        person.setName(name);
         person.setPhoneNumber(num);
         person.setFormattedDate(y + "-" + m + "-" + d);
 
         BirthdayMessenger.updateDb();
+        BirthdayListFragment.notifyListChange();
+
+        MySQLHelper db = new MySQLHelper(getActivity());
+        db.updatePerson(person);
         //((BaseAdapter)listview.getAdapter()).notifyDataSetChanged();
     }
 }

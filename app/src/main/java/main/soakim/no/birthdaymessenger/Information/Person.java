@@ -129,4 +129,8 @@ public class Person {
     public Date getBirthday() {
         return birthday;
     }
+
+    public String toString() {
+        return name;
+    }
 }
