@@ -89,7 +89,10 @@ public class EditPersonFragment extends Fragment {
         person.setFormattedDate(y + "-" + m + "-" + d);
 
         BirthdayMessenger.updateDb();
+        BirthdayListFragment.notifyListChange();
 
+        MySQLHelper db = new MySQLHelper(getActivity());
+        db.updatePerson(person);
         //((BaseAdapter)listview.getAdapter()).notifyDataSetChanged();
     }
 }

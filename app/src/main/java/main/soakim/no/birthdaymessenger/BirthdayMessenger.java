@@ -18,7 +18,7 @@ import java.util.List;
 import main.soakim.no.birthdaymessenger.Information.Person;
 
 public class BirthdayMessenger extends Activity implements BirthdayListFragment.ListFragmentItemClickListener {
-    public static String[] personsName;
+    public static ArrayList<String> personsName = new ArrayList<String>();
     public static List<Person> persons = new ArrayList<Person>();
 
     public Date setFormattedDate(String dateFromDB){
@@ -44,9 +44,10 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
 
         persons = db.getAllPersons();
 
-
         Log.d("People in db", persons.toString());
+
         updateDb();
+        Log.d("People in arraylist", personsName.size()+"");
 
         setContentView(R.layout.activity_birthday_messenger);
         //how to send an sms
@@ -82,10 +83,10 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
     }
 
     public static void updateDb() {
-        personsName = new String[persons.size()];
-        for(int i = 0; i < personsName.length; i++)
-            personsName[i] = persons.get(i).getName();
+        //personsName = new String[persons.size()];
+        personsName.clear();
+        for(int i = 0; i < persons.size(); i++)
+            personsName.add(persons.get(i).getName());
 
-        //BirthdayListFragment.notifyListChange();
     }
 }

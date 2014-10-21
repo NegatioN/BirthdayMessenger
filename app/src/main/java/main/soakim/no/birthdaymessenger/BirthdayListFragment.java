@@ -2,6 +2,7 @@ package main.soakim.no.birthdaymessenger;
 
 import android.app.Activity;
 import android.app.ListFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,9 @@ import android.widget.Toast;
 public class BirthdayListFragment extends ListFragment{
 
     private ListFragmentItemClickListener listener;
+    private static ArrayAdapter<String> adapter;
+
+    // static String[] strings = new String[] { "empty" };
 
     public interface ListFragmentItemClickListener {
         void onListFragmentItemClick(int position);
@@ -33,7 +37,8 @@ public class BirthdayListFragment extends ListFragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, BirthdayMessenger.personsName);
+        //strings = BirthdayMessenger.personsName;
+        adapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, BirthdayMessenger.personsName);
 
         setListAdapter(adapter);
         return super.onCreateView(inflater, container, savedInstanceState);
@@ -42,5 +47,11 @@ public class BirthdayListFragment extends ListFragment{
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         listener.onListFragmentItemClick(position);
+    }
+
+    public static void notifyListChange() {
+        if(adapter == null) return;
+        //strings = BirthdayMessenger.personsName;
+        adapter.notifyDataSetChanged();
     }
 }
