@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,9 +115,13 @@ public class MySQLHelper extends SQLiteOpenHelper{
     public List<Person> getPersonWithBirthday(String formattedDate){
         List<Person> persons = new ArrayList<Person>();
 
+        String wildcardDate = "%" + formattedDate.substring(4, 10);
+        Log.d("wildcaredate", wildcardDate);
+
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM " + TABLE_PERSONS + " WHERE " + KEY_BIRTHDAY + " = " + formattedDate;
-        Cursor cursor = db.rawQuery(query, null);
+
+      Cursor cursor =   db.query(TABLE_PERSONS, new String[]{KEY_ID, KEY_NAME, KEY_PHONE, KEY_BIRTHDAY, KEY_MESSAGE}, KEY_BIRTHDAY + " LIKE ?",
+              new String[]{wildcardDate}, null, null, null, null);
 
         if(cursor.moveToFirst())
             do{

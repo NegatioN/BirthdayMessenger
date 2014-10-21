@@ -11,7 +11,6 @@ import java.util.Date;
  */
 public class Person {
     public final static String DATEFORMAT = "yyyy-MM-dd";
-    public final static String CURRENTMESSAGE = "GRATTIS MED BURSDAGEN XOXO";
 
 
     private int id;

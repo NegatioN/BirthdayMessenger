@@ -9,7 +9,6 @@ import android.telephony.SmsManager;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -31,11 +30,11 @@ public class SmsService extends Service {
         Calendar calendar = Calendar.getInstance();
 
         MySQLHelper db = new MySQLHelper(getApplicationContext());
-       // List<Person> persons = db.getPersonWithBirthday(convertDateToString(calendar));
+        List<Person> persons = db.getPersonWithBirthday(convertDateToString(calendar));
 
         //test
-        List<Person> persons = new ArrayList<Person>();
-        persons.add(new Person("Joakim Rishaug", 95153437, Calendar.getInstance().getTime()));
+       // List<Person> persons = new ArrayList<Person>();
+       // persons.add(new Person("Joakim Rishaug", 95153437, Calendar.getInstance().getTime()));
 
         if(persons.isEmpty())
             //do nothing?

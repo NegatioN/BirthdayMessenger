@@ -39,8 +39,8 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
 
         MySQLHelper db = new MySQLHelper(this);
 
-     //   db.addPerson(new Person( "Joakim", 12345678, setFormattedDate("1990-02-13")));
-     //   db.addPerson(new Person( "Martin", 22222222, setFormattedDate("1993-05-17")));
+       // db.addPerson(new Person( "Joakim Rishaug", 95153437, setFormattedDate("1990-10-21")));
+       // db.addPerson(new Person( "Martin", 22222222, setFormattedDate("1993-05-13")));
 
         persons = db.getAllPersons();
 
@@ -50,8 +50,8 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
 
         setContentView(R.layout.activity_birthday_messenger);
         //how to send an sms
-       // Intent i = new Intent();
-       // i.setAction("main.soakim.no.birthdaymessenger.SmsBroadcastReciever");
+        //Intent i = new Intent();
+        //i.setAction("main.soakim.no.birthdaymessenger.SmsBroadcastReciever");
        // sendBroadcast(i);
     }
 
