@@ -30,13 +30,9 @@ public class PeriodicService extends Service {
         int minute = Integer.parseInt(whenToSend.substring(3,5));
         time.set(0,minute,hour,time.monthDay,time.month,time.year);
 
-
-
         AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         //alarm runs every day
         alarm.setRepeating(AlarmManager.RTC_WAKEUP, time.toMillis(false), 24*60*60*1000, pi);
-
-
 
         return super.onStartCommand(intent, flags, startId);
     }

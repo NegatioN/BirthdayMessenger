@@ -10,8 +10,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.List;
-
 import main.soakim.no.birthdaymessenger.Information.Person;
 
 /**
@@ -53,10 +51,10 @@ public class NewPersonFragment extends Fragment {
             m = dp.getMonth();
             d = dp.getDayOfMonth();
         } catch(NumberFormatException e) {
-            Toast.makeText(getActivity(), "Number must be 8 digits long!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.num_error), Toast.LENGTH_SHORT).show();
             return;
         } catch (IllegalArgumentException e) {
-            Toast.makeText(getActivity(), "You must enter a name!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.name_error), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -68,7 +66,7 @@ public class NewPersonFragment extends Fragment {
         MySQLHelper db = new MySQLHelper(getActivity());
         db.addPerson(person);
 
-        BirthdayMessenger.updateDb();
+        BirthdayMessenger.updateList();
         BirthdayListFragment.notifyListChange();
     }
 }

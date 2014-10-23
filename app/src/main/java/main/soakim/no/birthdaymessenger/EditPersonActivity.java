@@ -45,7 +45,8 @@ public class EditPersonActivity extends Activity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.action_settings: //settings();
+            case R.id.exit: //settings();
+                finish();
                 break;
             case R.id.delete_person:
                 deletePerson();
@@ -71,7 +72,7 @@ public class EditPersonActivity extends Activity{
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure you want to delete this person?").setPositiveButton("Yes", dialogClickListener)
-                .setNegativeButton("No", dialogClickListener).show();
+        builder.setMessage(getString(R.string.delete_question)).setPositiveButton(getString(R.string.yes), dialogClickListener)
+                .setNegativeButton(getString(R.string.no), dialogClickListener).show();
     }
 }

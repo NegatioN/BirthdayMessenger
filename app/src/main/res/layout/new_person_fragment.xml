@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name"
+        android:text="@string/name"
         android:id="@+id/nameTextView" />
 
     <EditText
@@ -21,7 +21,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Phone number"
+        android:text="@string/num"
         android:paddingTop="5dp"
         android:id="@+id/numTextView" />
 
@@ -35,7 +35,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BirthDay"
+        android:text="@string/birthday"
         android:paddingTop="5dp"
         android:id="@+id/bdayTextView" />
 
@@ -49,7 +49,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save Changes"
+        android:text="@string/create_new"
         android:id="@+id/saveButton" />
 
 

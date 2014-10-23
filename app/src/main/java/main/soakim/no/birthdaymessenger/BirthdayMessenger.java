@@ -6,11 +6,14 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,9 +52,17 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
         persons = db.getAllPersons();
         context = this;
 
+        //SharedPreferences.Editor.clear().commit(); // clears sharedpreferences from device?
+
+        // sets default message if sharedpreferances doesn't yet exist
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("message_preference", getString(R.string.default_message));
+        editor.commit();
+
         Log.d("People in db", persons.toString());
 
-        updateDb();
+        updateList();
         Log.d("People in arraylist", personsName.size()+"");
 
         setContentView(R.layout.activity_birthday_messenger);
@@ -71,11 +82,13 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.action_settings: //settings();
-                break;
+                Intent in = new Intent(this, SetPreferencesActivity.class);
+                startActivity(in);
+                return true;
             case R.id.new_person:
                 Intent intent = new Intent("main.soakim.no.birthdaymessenger.NewPersonActivity");
                 startActivity(intent);
-                break;
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -107,7 +120,7 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
         }
     }
 
-    public static void updateDb() {
+    public static void updateList() {
         //personsName = new String[persons.size()];
         MySQLHelper db = new MySQLHelper(context);
         persons = db.getAllPersons();

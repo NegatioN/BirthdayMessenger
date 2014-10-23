@@ -1,22 +1,15 @@
 package main.soakim.no.birthdaymessenger;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Date;
 import java.util.List;
 
 import main.soakim.no.birthdaymessenger.Information.Person;
@@ -86,10 +79,10 @@ public class EditPersonFragment extends Fragment {
             m = dp.getMonth();
             d = dp.getDayOfMonth();
         } catch(NumberFormatException e) {
-            Toast.makeText(getActivity(), "Number must be 8 digits long!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.num_error), Toast.LENGTH_SHORT).show();
             return;
         } catch (IllegalArgumentException e) {
-            Toast.makeText(getActivity(), "You must enter a name!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.name_error), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -100,16 +93,15 @@ public class EditPersonFragment extends Fragment {
         MySQLHelper db = new MySQLHelper(getActivity());
         db.updatePerson(person);
 
-        BirthdayMessenger.updateDb();
+        BirthdayMessenger.updateList();
         BirthdayListFragment.notifyListChange();
-        //((BaseAdapter)listview.getAdapter()).notifyDataSetChanged();
     }
 
     public void deletePerson(Person person) {
         MySQLHelper db = new MySQLHelper(getActivity());
         db.deletePerson(person);
 
-        BirthdayMessenger.updateDb();
+        BirthdayMessenger.updateList();
     }
 
     public Person getPerson() {

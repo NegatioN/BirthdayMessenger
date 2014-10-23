@@ -14,6 +14,7 @@ import java.util.List;
 
 import main.soakim.no.birthdaymessenger.Information.Person;
 import main.soakim.no.birthdaymessenger.MySQLHelper;
+import main.soakim.no.birthdaymessenger.R;
 
 /**
  * Created by NegatioN on 19.10.2014.
@@ -27,6 +28,8 @@ public class SmsService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if(!prefs.getBoolean("checkbox_preference", true)) return -1;
         Calendar calendar = Calendar.getInstance();
 
         MySQLHelper db = new MySQLHelper(getApplicationContext());
@@ -51,7 +54,8 @@ public class SmsService extends Service {
                         //get userdefined message.
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-                        birthdayMessage = preferences.getString("message_preference", "Gratulerer med dagen (Name), håper du har en fin dag! ");
+                        birthdayMessage = preferences.getString("message_preference", getApplicationContext().getString(R.string.default_message));
+                        Log.d("HEYO3!!", birthdayMessage);
                         birthdayMessage = addPersonNameToMessage(birthdayMessage, person);
                     }else
                         birthdayMessage = person.getCustomMessage();
