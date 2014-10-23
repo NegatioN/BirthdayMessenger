@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,8 +86,10 @@ public class NewPersonFragment extends Fragment {
 
             DatePicker dp = (DatePicker) layout.findViewById(R.id.datePicker);
             y = dp.getYear();
-            m = dp.getMonth();
+            m = dp.getMonth() + 1; //month counter starts at 0
             d = dp.getDayOfMonth();
+
+            Log.d("datepicker", "Year:" + y + " month: " + m + " day: " + d);
         } catch(NumberFormatException e) {
             Toast.makeText(getActivity(), getString(R.string.num_error), Toast.LENGTH_SHORT).show();
             return;

@@ -2,11 +2,9 @@ package main.soakim.no.birthdaymessenger;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,7 +111,7 @@ public class EditPersonFragment extends Fragment {
 
             DatePicker dp = (DatePicker) layout.findViewById(R.id.datePicker);
             y = dp.getYear();
-            m = dp.getMonth();
+            m = dp.getMonth() + 1; //monthpicker starts at 0
             d = dp.getDayOfMonth();
         } catch(NumberFormatException e) {
             Toast.makeText(getActivity(), getString(R.string.num_error), Toast.LENGTH_SHORT).show();

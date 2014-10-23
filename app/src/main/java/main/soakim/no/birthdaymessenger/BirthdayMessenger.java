@@ -1,9 +1,11 @@
 package main.soakim.no.birthdaymessenger;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,7 +15,6 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 import main.soakim.no.birthdaymessenger.Information.Person;
+import main.soakim.no.birthdaymessenger.smsservice.PeriodicService;
 
 public class BirthdayMessenger extends Activity implements BirthdayListFragment.ListFragmentItemClickListener {
     public static ArrayList<String> personsName = new ArrayList<String>();
@@ -65,11 +67,23 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
         updateList();
         Log.d("People in arraylist", personsName.size()+"");
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if(preferences.getBoolean("checkbox_preference", false)){
+            //starts the periodic-service for sending messages to everyone that has a birthday today.
+             Intent i = new Intent();
+             i.setAction("main.soakim.no.birthdaymessenger.SmsBroadcastReciever");
+             sendBroadcast(i);
+            Log.d("Alarm", "Periodic alarm started");
+        }else{
+            //cancels the periodic alarm so it no longer runs.
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            PendingIntent pSmsIntent = PendingIntent.getService(this, 0, new Intent(this, PeriodicService.class), 0);
+            alarmManager.cancel(pSmsIntent);
+            Log.d("Alarm", "Periodic alarm Cancelled");
+        }
+
         setContentView(R.layout.activity_birthday_messenger);
-        //how to send an sms
-      //  Intent i = new Intent();
-       // i.setAction("main.soakim.no.birthdaymessenger.SmsBroadcastReciever");
-       // sendBroadcast(i);
     }
 
     @Override
