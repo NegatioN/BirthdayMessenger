@@ -1,7 +1,12 @@
 package main.soakim.no.birthdaymessenger;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,18 +45,50 @@ public class EditPersonFragment extends Fragment {
         datePicker.setMaxDate(System.currentTimeMillis());
         datePicker.init(p.getYear(), p.getMonth(), p.getDay(), null);
 
-        Button btn = (Button) v.findViewById(R.id.saveButton);
-        btn.setTag(p.getId());
-        btn.setOnClickListener(new View.OnClickListener() {
+        Button btnsave = (Button) v.findViewById(R.id.saveButton);
+        btnsave.setTag(p.getId());
+        btnsave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View parent = (View) v.getParent();
+                View parent = (View) v.getParent().getParent();
                 Person p = getPerson(Integer.parseInt(v.getTag()+""));
                 saveEdit(parent, p);
             }
         });
 
+        Button btnedit = (Button) v.findViewById(R.id.editMessageButton);
+        btnedit.setTag(p.getId());
+        btnedit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View parent = (View) v.getParent().getParent();
+                Person p = getPerson(Integer.parseInt(v.getTag()+""));
+                editMessage(parent, p);
+            }
+        });
+
         return v;
+    }
+
+    private void editMessage(View layout, final Person p) {
+        final EditText input = new EditText(getActivity());
+
+        new AlertDialog.Builder(getActivity())
+                .setTitle(getString(R.string.custom_message))
+                .setMessage(p.getCustomMessage() == null ? getString(R.string.default_message) : p.getCustomMessage())
+                .setView(input)
+                .setPositiveButton(getString(R.string.set), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        Editable value = input.getText();
+                        String text = value.toString().trim();
+                        if(!text.equals("")) p.setCustomMessage(text);
+                        else p.setCustomMessage(null);
+                    }
+                }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+            }
+        }).show();
     }
 
     private Person getPerson(int id) {
@@ -62,7 +99,7 @@ public class EditPersonFragment extends Fragment {
     }
 
     private void saveEdit(View layout, Person person) {
-        String name = "";
+        String name = "", msg = "";
         int num = -1;
         int y = -1;
         int m = -1;
@@ -89,6 +126,8 @@ public class EditPersonFragment extends Fragment {
         person.setName(name);
         person.setPhoneNumber(num);
         person.setFormattedDate(y + "-" + m + "-" + d);
+
+        if(!msg.equals("")) person.setCustomMessage(msg);
 
         MySQLHelper db = new MySQLHelper(getActivity());
         db.updatePerson(person);

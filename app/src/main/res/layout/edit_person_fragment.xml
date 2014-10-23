@@ -46,11 +46,23 @@
         android:paddingTop="5dp"
         android:calendarViewShown="false"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save_changes"
-        android:id="@+id/saveButton" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_message"
+            android:id="@+id/editMessageButton" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save_changes"
+            android:id="@+id/saveButton" />
+    </LinearLayout>
 
 
 </LinearLayout>
