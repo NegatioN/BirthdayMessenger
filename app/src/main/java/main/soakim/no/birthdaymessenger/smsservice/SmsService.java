@@ -55,7 +55,7 @@ public class SmsService extends Service {
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
                         birthdayMessage = preferences.getString("message_preference", getApplicationContext().getString(R.string.default_message));
-                        Log.d("HEYO3!!", birthdayMessage);
+
                         birthdayMessage = addPersonNameToMessage(birthdayMessage, person);
                     }else
                         birthdayMessage = person.getCustomMessage();
@@ -79,7 +79,7 @@ public class SmsService extends Service {
 
     //exchanges the (Name) part of a message with the name of the person
     private String addPersonNameToMessage(String message, Person person){
-        String regex = "(Name)";
+        String regex = "(Name)|(Navn)|(navn)|(name)";
 
         return message.replace(regex, person.getName());
     }
