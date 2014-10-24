@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BirthdayMessenger</string>
+
+    <string name="action_settings">Innstillinger</string>
+    <string name="new_person">Ny</string>
+    <string name="delete_person">Slett</string>
+    <string name="exit">Avslutt</string>
+
+    <string name="name">Navn</string>
+    <string name="num">Telefon nummer</string>
+    <string name="custom_message">La den stå blank for standard, navnet erstatter (Navn)</string>
+    <string name="birthday">Bursdag</string>
+    <string name="save_changes">Lagre Endringer</string>
+    <string name="create_new">Legg Til</string>
+    <string name="edit_message">Endre Melding</string>
+
+    <string name="default_message">Gratulerer med dagen (Navn), håper du har en fin dag!</string>
+
+    <string name="delete_question">Er du sikker på at du vil slette denne personen?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nei</string>
+    <string name="set">Sett</string>
+    <string name="cancel">Avbryt</string>
+
+    <string name="name_error">Du må skrive inn et navn!</string>
+    <string name="num_error">Du må skrive inn et 8 siffer langt nummer!</string>
+
+    <string name="send_messages">Send melding</string>
+    <string name="send_messages_auto">Send melding automatisk på/av</string>
+    <string name="send_time">Sendtid</string>
+    <string name="send_time_click">Klikk her for å endre tidspunkt melding sendes på</string>
+    <string name="default_message_title">Standard melding</string>
+    <string name="default_message_click">Klikk her for å endre standard melding</string>
+    <string name="languages">Språk</string>
+
+</resources>

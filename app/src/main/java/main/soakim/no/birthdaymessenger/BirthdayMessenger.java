@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import main.soakim.no.birthdaymessenger.Information.Person;
 import main.soakim.no.birthdaymessenger.smsservice.PeriodicService;
@@ -57,10 +58,14 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
         //SharedPreferences.Editor.clear().commit(); // clears sharedpreferences from device?
 
         // sets default message if sharedpreferances doesn't yet exist
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        //SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("message_preference", getString(R.string.default_message));
         editor.commit();
+
+        String language  = sharedPref.getString("language_preferance", ""); // your language
+        setLanguage(language);
 
         Log.d("People in db", persons.toString());
 
@@ -84,6 +89,14 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
         }
 
         setContentView(R.layout.activity_birthday_messenger);
+    }
+
+    private void setLanguage(String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
 
     @Override

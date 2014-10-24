@@ -19,5 +19,12 @@
             android:summary="@string/default_message_click"
             android:text="@string/default_message"
             android:dialogTitle="@string/default_message_title" />
+
+        <ListPreference
+            android:key="language_preferance"
+            android:title="@string/languages"
+            android:entries="@array/language"
+            android:entryValues="@array/languageData"/>
+
     </PreferenceCategory>
 </PreferenceScreen>
