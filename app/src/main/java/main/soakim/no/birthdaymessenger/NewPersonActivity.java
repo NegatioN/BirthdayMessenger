@@ -17,11 +17,18 @@ public class NewPersonActivity extends Activity{
 
         setContentView(R.layout.new_person_activity);
 
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransacton = fragmentManager.beginTransaction();
-        NewPersonFragment newFragment = new NewPersonFragment();
+        if(savedInstanceState == null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransacton = fragmentManager.beginTransaction();
+            NewPersonFragment newFragment = new NewPersonFragment();
 
-        fragmentTransacton.add(R.id.new_person_fragment_container, newFragment);
-        fragmentTransacton.commit();
+            fragmentTransacton.add(R.id.new_person_fragment_container, newFragment);
+            fragmentTransacton.commit();
+        }
+        else {
+            NewPersonFragment newFragment = new NewPersonFragment();
+            newFragment = (NewPersonFragment) getFragmentManager().findFragmentById(R.id.new_person_fragment_container);
+        }
+
     }
 }

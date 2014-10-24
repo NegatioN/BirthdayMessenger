@@ -22,18 +22,25 @@ public class EditPersonActivity extends Activity{
 
         setContentView(R.layout.edit_person_activity);
 
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransacton = fragmentManager.beginTransaction();
-        EditPersonFragment editFragment = new EditPersonFragment();
+        if(savedInstanceState == null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransacton = fragmentManager.beginTransaction();
+            EditPersonFragment editFragment = new EditPersonFragment();
 
-        Bundle b = new Bundle();
-        b.putInt("position", getIntent().getIntExtra("position", 0));
+            Bundle b = new Bundle();
+            b.putInt("position", getIntent().getIntExtra("position", 0));
 
-        editFragment.setArguments(b);
-        fragmentTransacton.add(R.id.edit_person_fragment_container, editFragment);
-        fragmentTransacton.commit();
+            editFragment.setArguments(b);
+            fragmentTransacton.add(R.id.edit_person_fragment_container, editFragment);
+            fragmentTransacton.commit();
+            fragment = editFragment;
+        }
+        else {
+            EditPersonFragment editFragment = new EditPersonFragment();
+            editFragment = (EditPersonFragment) getFragmentManager().findFragmentById(R.id.edit_person_fragment_container);
+            fragment = editFragment;
+        }
 
-        fragment = editFragment;
     }
 
     @Override
