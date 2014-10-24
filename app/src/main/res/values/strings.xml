@@ -13,7 +13,7 @@
     <string name="custom_message">Leave blank for default, real name replaces (Name)</string>
     <string name="birthday">Birthday</string>
     <string name="save_changes">Save Changes</string>
-    <string name="create_new">Create New</string>
+    <string name="create_new">Add</string>
     <string name="edit_message">Edit Message</string>
 
     <string name="default_message">Gratulerer med dagen (Name), håper du har en fin dag!</string>
