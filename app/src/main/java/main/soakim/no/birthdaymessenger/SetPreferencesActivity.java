@@ -1,6 +1,7 @@
 package main.soakim.no.birthdaymessenger;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -20,5 +21,12 @@ public class SetPreferencesActivity extends PreferenceActivity {
         super.onCreate(savedInstanceState);
 
         getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefsFragment()).commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent in = new Intent(this, BirthdayMessenger.class);
+        startActivity(in);
     }
 }

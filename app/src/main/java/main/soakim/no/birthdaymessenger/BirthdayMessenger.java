@@ -48,29 +48,21 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
         super.onCreate(savedInstanceState);
 
         MySQLHelper db = new MySQLHelper(this);
-
-       // db.addPerson(new Person( "Joakim Rishaug", 95153437, setFormattedDate("1990-10-21")));
-       // db.addPerson(new Person( "Martin", 22222222, setFormattedDate("1993-05-13")));
-
         persons = db.getAllPersons();
         context = this;
 
-        //SharedPreferences.Editor.clear().commit(); // clears sharedpreferences from device?
-
-        // sets default message if sharedpreferances doesn't yet exist
-        //SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("message_preference", getString(R.string.default_message));
-        editor.commit();
 
-        String language  = sharedPref.getString("language_preferance", ""); // your language
+        String language  = sharedPref.getString("language_preferance", "no"); // your language
         setLanguage(language);
 
-        Log.d("People in db", persons.toString());
+        if(sharedPref.getString("default_message", "").equals("")) {
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("default_message", getString(R.string.default_message));
+            editor.commit();
+        }
 
         updateList();
-        Log.d("People in arraylist", personsName.size()+"");
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 

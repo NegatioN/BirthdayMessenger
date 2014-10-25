@@ -2,7 +2,7 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="Settings">
+        android:title="@string/action_settings">
         <CheckBoxPreference
             android:key="checkbox_preference"
             android:title="@string/send_messages"

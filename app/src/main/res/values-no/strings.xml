@@ -29,9 +29,9 @@
 
     <string name="send_messages">Send melding</string>
     <string name="send_messages_auto">Send melding automatisk på/av</string>
-    <string name="send_time">Sendtid</string>
+    <string name="send_time">Sende-tidspunkt</string>
     <string name="send_time_click">Klikk her for å endre tidspunkt melding sendes på</string>
-    <string name="default_message_title">Standard melding</string>
+    <string name="default_message_title">Standard-melding</string>
     <string name="default_message_click">Klikk her for å endre standard melding</string>
     <string name="languages">Språk</string>
 

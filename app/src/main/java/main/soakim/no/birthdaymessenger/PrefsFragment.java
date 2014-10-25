@@ -32,6 +32,8 @@ public class PrefsFragment extends PreferenceFragment {
             @Override
             public boolean onPreferenceChange(Preference preference, Object changedValue) {
                 if(changedValue == null || changedValue.equals("") || changedValue.toString().trim().equals("")) {
+                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                    sharedPref.edit().putString("default_message", changedValue.toString());
                     ((EditTextPreference)preference).setText(getString(R.string.default_message)+"");
                     return false;
                 }
