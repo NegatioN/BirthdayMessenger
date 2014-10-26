@@ -40,7 +40,6 @@ public class EditPersonActivity extends Activity{
             editFragment = (EditPersonFragment) getFragmentManager().findFragmentById(R.id.edit_person_fragment_container);
             fragment = editFragment;
         }
-
     }
 
     @Override
@@ -53,13 +52,15 @@ public class EditPersonActivity extends Activity{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.exit: //settings();
-                finish();
+                Intent intent = new Intent(getApplicationContext(), BirthdayMessenger.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("EXIT", true);
+                startActivity(intent);
                 break;
             case R.id.delete_person:
                 deletePerson();
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -79,7 +80,6 @@ public class EditPersonActivity extends Activity{
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(getString(R.string.delete_question)).setPositiveButton(getString(R.string.yes), dialogClickListener)
-                .setNegativeButton(getString(R.string.no), dialogClickListener).show();
+        builder.setMessage(getString(R.string.delete_question)).setPositiveButton(getString(R.string.yes), dialogClickListener).setNegativeButton(getString(R.string.no), dialogClickListener).show();
     }
 }

@@ -35,28 +35,19 @@ public class SmsService extends Service {
         MySQLHelper db = new MySQLHelper(getApplicationContext());
         List<Person> persons = db.getPersonWithBirthday(convertDateToString(calendar));
 
-        //test
-       // List<Person> persons = new ArrayList<Person>();
-       // persons.add(new Person("Joakim Rishaug", 95153437, Calendar.getInstance().getTime()));
-
         if(persons.isEmpty())
-            //do nothing?
             Log.d("SmsService.birthday", "no birthdays on this day");
         else {
             //sends an sms to each person with a birthday today
             for(Person person : persons){
                 try {
                     SmsManager smsManager = SmsManager.getDefault();
-
                     String birthdayMessage = null;
 
                     if(person.getCustomMessage() == null) {
                         //get userdefined message.
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-
-                                birthdayMessage = preferences.getString("message_preference", getString(R.string.default_message));
-
+                        birthdayMessage = preferences.getString("message_preference", getString(R.string.default_message));
                         birthdayMessage = addPersonNameToMessage(birthdayMessage, person);
                     }else
                         birthdayMessage = person.getCustomMessage();
@@ -65,11 +56,9 @@ public class SmsService extends Service {
                 }catch(Exception e){
                     e.printStackTrace();
                 }
-
             }
             Log.d("SmsService.birthday", "Birthdaymessage sent");
         }
-
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -80,7 +69,6 @@ public class SmsService extends Service {
 
     //exchanges the (Name) part of a message with the name of the person
     private String addPersonNameToMessage(String message, Person person){
-        //[Nn]ame|avn[)]
         String regex = "[(][Nn](avn|ame)[)]";
         Log.d("addPersonToMessage", person.getName());
         Log.d("regexresult", message.replaceAll(regex, person.getName()));

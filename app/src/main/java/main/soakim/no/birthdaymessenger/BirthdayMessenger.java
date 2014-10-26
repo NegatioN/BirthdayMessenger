@@ -47,6 +47,9 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (getIntent().getBooleanExtra("EXIT", false))
+            finish();
+
         MySQLHelper db = new MySQLHelper(this);
         persons = db.getAllPersons();
         context = this;
@@ -108,8 +111,10 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
                 Intent intent = new Intent("main.soakim.no.birthdaymessenger.NewPersonActivity");
                 startActivity(intent);
                 return true;
+            case R.id.exit:
+                finish();
+                return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -140,7 +145,6 @@ public class BirthdayMessenger extends Activity implements BirthdayListFragment.
     }
 
     public static void updateList() {
-        //personsName = new String[persons.size()];
         MySQLHelper db = new MySQLHelper(context);
         persons = db.getAllPersons();
 

@@ -22,7 +22,7 @@ public class MySQLHelper extends SQLiteOpenHelper{
     //Database Key-values
     public final static String KEY_ID = "_ID", KEY_NAME = "_NAME", KEY_PHONE = "_PHONE", KEY_BIRTHDAY = "_BIRTHDAY", KEY_MESSAGE = "_MESSAGE";
 
-    private final static int DB_VERSION = 1;
+    private final static int DB_VERSION = 2;
 
     public MySQLHelper(Context context){
         super(context, DB_NAME, null, DB_VERSION);
@@ -57,11 +57,9 @@ public class MySQLHelper extends SQLiteOpenHelper{
         values.put(KEY_BIRTHDAY, person.getFormattedDate());
         if(person.getCustomMessage() != null)
             values.put(KEY_MESSAGE, person.getCustomMessage());
-        //TODO MAYBE HAVE TO ADD NORMAL MESSAGE TO ALL PERSON-OBJECTS IF BUGS
 
         db.insert(TABLE_PERSONS, null, values);
         db.close();
-
     }
 
     //returns a single person with a given ID
@@ -82,7 +80,6 @@ public class MySQLHelper extends SQLiteOpenHelper{
                 foundPerson.setCustomMessage(cursor.getString(4));
 
         }
-
         return foundPerson;
     }
 
@@ -120,7 +117,7 @@ public class MySQLHelper extends SQLiteOpenHelper{
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-      Cursor cursor =   db.query(TABLE_PERSONS, new String[]{KEY_ID, KEY_NAME, KEY_PHONE, KEY_BIRTHDAY, KEY_MESSAGE}, KEY_BIRTHDAY + " LIKE ?",
+        Cursor cursor =   db.query(TABLE_PERSONS, new String[]{KEY_ID, KEY_NAME, KEY_PHONE, KEY_BIRTHDAY, KEY_MESSAGE}, KEY_BIRTHDAY + " LIKE ?",
               new String[]{wildcardDate}, null, null, null, null);
 
         if(cursor.moveToFirst())
@@ -136,7 +133,6 @@ public class MySQLHelper extends SQLiteOpenHelper{
 
                 persons.add(person);
             }while(cursor.moveToNext());
-
 
         return persons;
     }
@@ -160,7 +156,4 @@ public class MySQLHelper extends SQLiteOpenHelper{
 
         return db.update(TABLE_PERSONS, values, KEY_ID + "=?", new String[]{String.valueOf(person.getId())});
     }
-
-
-
 }

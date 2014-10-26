@@ -12,7 +12,6 @@ import java.util.Date;
 public class Person {
     public final static String DATEFORMAT = "yyyy-MM-dd";
 
-
     private int id;
     private String name, customMessage;
     private int phoneNumber;
@@ -105,8 +104,6 @@ public class Person {
     }
 
     public String getName() {
-
-
         return name;
     }
 

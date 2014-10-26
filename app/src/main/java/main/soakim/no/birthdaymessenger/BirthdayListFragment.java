@@ -19,8 +19,6 @@ public class BirthdayListFragment extends ListFragment{
     private ListFragmentItemClickListener listener;
     private static ArrayAdapter<String> adapter;
 
-    // static String[] strings = new String[] { "empty" };
-
     public interface ListFragmentItemClickListener {
         void onListFragmentItemClick(int position);
     }
@@ -37,9 +35,7 @@ public class BirthdayListFragment extends ListFragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //strings = BirthdayMessenger.personsName;
         adapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, BirthdayMessenger.personsName);
-
         setListAdapter(adapter);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -51,7 +47,6 @@ public class BirthdayListFragment extends ListFragment{
 
     public static void notifyListChange() {
         if(adapter == null) return;
-        //strings = BirthdayMessenger.personsName;
         adapter.notifyDataSetChanged();
     }
 }

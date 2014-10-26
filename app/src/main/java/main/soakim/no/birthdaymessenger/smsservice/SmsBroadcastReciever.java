@@ -13,8 +13,6 @@ import android.util.Log;
 public class SmsBroadcastReciever extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-
-        // real
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         if(preferences.getBoolean("checkbox_preference", false)) {
             Intent i = new Intent(context, PeriodicService.class);

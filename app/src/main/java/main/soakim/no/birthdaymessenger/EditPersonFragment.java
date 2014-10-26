@@ -84,7 +84,6 @@ public class EditPersonFragment extends Fragment {
                     }
                 }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-
             }
         }).show();
     }

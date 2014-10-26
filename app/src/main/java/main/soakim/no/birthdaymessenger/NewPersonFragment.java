@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import main.soakim.no.birthdaymessenger.Information.Person;
@@ -25,6 +26,7 @@ public class NewPersonFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View v = inflater.inflate(R.layout.new_person_fragment, null);
 
         DatePicker datePicker = (DatePicker) v.findViewById(R.id.datePicker);
@@ -47,7 +49,6 @@ public class NewPersonFragment extends Fragment {
                 editMessage(parent);
             }
         });
-
         return v;
     }
 
